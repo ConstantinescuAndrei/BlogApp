@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button} from "@material-ui/core";
+import { FormGroup, FormControlLabel, Switch, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from 'react-redux';
 import { signIn } from '../../../Redux/actions';
@@ -14,24 +14,23 @@ const useStyles = makeStyles({
 
 const LoginButton = () => {
     const classes = useStyles();
-    const loginLink = "http://localhost:5000/users/login"
-    const user = useSelector(state => state.isLogged);    
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const loginByUsernameLink = "http://localhost:5000/users/loginByUsername";
+    const loginByEmailLink = "http://localhost:5000/users/loginByEmail";
+    const [user, setUser] = useState({username: '', email: '', password: ''}) 
+    const [auth, setAuth] = useState(true);
     const [loginDialog, setLoginDialog] = useState(false);
     const dispatch = useDispatch();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
 
+    const loginByUsername = (e) => {
+        console.log(user);
         const formUser = {
-            username,
-            password
+            username: user.username,
+            password: user.password
         };
-        async function fetchData() {
-            console.log(username);
-            console.log(password);
-            const result = await axios.post(loginLink, formUser);
+
+        async function loginUser() {
+            const result = await axios.post(loginByUsernameLink, formUser);
             console.log(result);
             if(result.data.connected === true) {
                 console.log(result.data);
@@ -39,16 +38,33 @@ const LoginButton = () => {
                 dispatch(signIn(result.data.user));
             }
         }
-        fetchData();
 
-        setUsername('');
-        setPassword('');
-        console.log(user);
+        loginUser();
+        setUser({username: '', email: '', password: ''});
     }
 
+    const loginByEmail = () => {
+        const formUser = {
+            email: user.email,
+            password: user.password
+        };
+
+        async function loginUser() {
+            const result = await axios.post(loginByEmailLink, formUser);
+                console.log(result);
+
+            if(result.data.connected === true) {
+                setLoginDialog(false);
+                dispatch(signIn(result.data.user));
+            }
+        }
+
+        loginUser();
+        setUser({username: '', email: '', password: ''});
+    }
 
     return (       
-        <div style={{display: "inline"}}>
+        <div style={{display: "inline"}}>            
             <Button
                 variant="outlined"
                 color="inherit"
@@ -67,17 +83,38 @@ const LoginButton = () => {
                     >
                         <DialogTitle id="form-dialog-title">
                             Login
-                        </DialogTitle>
+                        </DialogTitle>                        
                         <DialogContent>
-                            <TextField
-                                margin="dense"
-                                color="secondary"
-                                id="username"
-                                label="Username"
-                                type="text"
-                                fullWidth
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
+                            <FormGroup>
+                                <FormControlLabel 
+                                    control={<Switch checked={auth} onChange={() => setAuth(!auth)} aria-label="login switch" />}
+                                    label={"Switch between email or username login"}
+                                />
+                            </FormGroup>
+                            {
+                                auth ? (
+                                    <TextField
+                                        margin="dense"
+                                        color="secondary"
+                                        id="username"                                        
+                                        label="Username"
+                                        type="text"
+                                        fullWidth
+                                        onChange={(e) => setUser({...user, username: e.target.value})}
+                                    />
+                                ) : (
+                                    <TextField
+                                        margin="dense"
+                                        color="secondary"
+                                        id="email"
+                                        label="Email"
+                                        type="text"
+                                        fullWidth
+                                        onChange={(e) => setUser({...user, email: e.target.value})}
+                                    />
+                                )
+
+                            }
                             <TextField
                                 margin="dense"
                                 color="secondary"
@@ -85,14 +122,14 @@ const LoginButton = () => {
                                 label="Password"
                                 type="password"
                                 fullWidth
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => setUser({...user, password: e.target.value})}
                             />
                         </DialogContent>
                         <DialogActions>
                             <Button 
                                 color="secondary" 
                                 variant="contained"
-                                onClick={handleLogin}
+                                onClick={auth ? loginByUsername : loginByEmail}
                             >
                                 Login
                             </Button>

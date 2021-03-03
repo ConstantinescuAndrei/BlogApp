@@ -36,8 +36,8 @@ const TheWholeBlog = ({title, content, author, image, avatar}) => {
                     <Typography variant="subtitle1" color="secondary" className={classes.author}>{author}</Typography>
                     <Divider variant="middle"/>
                     <img 
-                        class="img" 
-
+                        class="img"
+                        style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "40%", height: "100%"}} 
                         src={image} 
                         />
                     <Typography className={classes.content}>{content}</Typography>    

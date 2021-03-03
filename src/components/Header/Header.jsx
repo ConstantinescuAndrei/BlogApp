@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { AppBar, Toolbar, Typography, Button, Paper } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/styles";
+import { Grid, AppBar, Toolbar, Typography, Button, Paper } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import { useSelector, useDispatch } from 'react-redux'; 
 import { logout } from '../../Redux/actions';
 import RegisterButton from "./RegisterButton/RegisterButton";
@@ -11,6 +10,9 @@ import CreateNewBlog from './CreateNewBlog/CreateNewBlog';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles((theme) => ({
+    grid: {
+        margin: 0,
+    },
     title: {
         flexGrow: 1,
     
@@ -34,14 +36,14 @@ const Header = ({handleBlogs}) => {
     }
 
     return (
-        <div>
             <AppBar 
                 position="static">
                 <Toolbar>
                     <Typography 
-                        variant="h6"
-                        className={classes.title}>
-                        Blog Application
+                        variant="h4"
+                        className={classes.title}
+                    >
+                        {user.username}
                     </Typography>
                     <BlogsButton handleBlogs={handleBlogs}/>
                     {
@@ -66,10 +68,9 @@ const Header = ({handleBlogs}) => {
                             </div>
                             
                         )
-                    }                    
+                    }    
                 </Toolbar>
             </AppBar>
-        </div>
     );
 }
 
