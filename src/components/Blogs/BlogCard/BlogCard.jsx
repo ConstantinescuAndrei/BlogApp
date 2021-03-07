@@ -14,9 +14,6 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
     grid: {
-        marginLeft: "10%",
-        marginRight: "10%",
-        marginBottom: "10px"
     }
 });
 
@@ -24,20 +21,15 @@ const BlogCard = ({id, title, content, author}) => {
     const classes = useStyles();
     const [finalContent, setFinalContent] = useState('');
 
-    const readMoreHandle = () => {
-        
-    }
-
     useEffect(() => {
         let temporaryContent;
         temporaryContent = content.substring(0, 100);
         temporaryContent = temporaryContent + "...";
         setFinalContent(temporaryContent);
-        console.log(finalContent);
     })
 
     return (
-        <Grid item xs={12} className={classes.grid} >
+        <Grid item xs={12} md={6}>
             <Card className={classes.root} variant="outlined">
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -52,7 +44,12 @@ const BlogCard = ({id, title, content, author}) => {
                 </CardContent>
                 <CardActions>
                     <Link to={`/blogs/${id}`} style={{textDecoration: "none"}}>
-                        <Button size="small" onClick={readMoreHandle} variant="contained" color="primary">Read all</Button>
+                        <Button size="small" 
+                            variant="contained" 
+                            color="primary"
+                        >
+                            Read all
+                        </Button>
                     </Link>
                 </CardActions>
             </Card>

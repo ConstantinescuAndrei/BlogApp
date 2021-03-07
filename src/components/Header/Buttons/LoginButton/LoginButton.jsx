@@ -1,25 +1,34 @@
 import React, { useState } from 'react';
-import { FormGroup, FormControlLabel, Switch, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { useSelector, useDispatch } from 'react-redux';
-import { signIn } from '../../../Redux/actions';
+import { useMediaQuery, FormGroup, FormControlLabel, Switch, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button} from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../../../Redux/actions';
 import axios from 'axios';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     button: {
-        marginLeft: "5px"
+        marginLeft: "5px",
+        [theme.breakpoints.down('md')] : {
+            marginBottom: "5px"
+        }
     }
-})
+}))
 
-const LoginButton = () => {
-    const classes = useStyles();
+const LoginButton = () => {    
     const loginByUsernameLink = "http://localhost:5000/users/loginByUsername";
     const loginByEmailLink = "http://localhost:5000/users/loginByEmail";
+
+    const classes = useStyles();
     const [user, setUser] = useState({username: '', email: '', password: ''}) 
     const [auth, setAuth] = useState(true);
     const [loginDialog, setLoginDialog] = useState(false);
     const dispatch = useDispatch();
+
+
+    const theme = useTheme();
+    const headerButtonsStyle = useMediaQuery(theme.breakpoints.up('md'));
+    
 
 
     const loginByUsername = (e) => {
@@ -27,7 +36,7 @@ const LoginButton = () => {
         const formUser = {
             username: user.username,
             password: user.password
-        };
+        };        
 
         async function loginUser() {
             const result = await axios.post(loginByUsernameLink, formUser);
@@ -64,7 +73,7 @@ const LoginButton = () => {
     }
 
     return (       
-        <div style={{display: "inline"}}>            
+        <div style={headerButtonsStyle ? {display: "inline"} : {display: "block"}}>            
             <Button
                 variant="outlined"
                 color="inherit"

@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, AppBar, Toolbar, Typography, Button, Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { AppBar, Toolbar, Typography, Button, useMediaQuery } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/styles";
 import { useSelector, useDispatch } from 'react-redux'; 
-import { logout } from '../../Redux/actions';
-import RegisterButton from "./RegisterButton/RegisterButton";
-import LoginButton from "./LoginButton/LoginButton";
-import BlogsButton from './BlogsButton/BlogsButton';
-import CreateNewBlog from './CreateNewBlog/CreateNewBlog';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import DesktopHeader from './DesktopHeader/DesktopHeader';
+import PhoneHeader from './PhoneHeader/PhoneHeader';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -25,15 +21,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Header = ({handleBlogs}) => {
+const Header = () => {
     const classes = useStyles();
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('md'));
     const user = useSelector(state => state.user);
-    const dispatch = useDispatch();
-
-    const logoutHandle = (e) => {
-        e.preventDefault();
-        dispatch(logout());
-    }
 
     return (
             <AppBar 
@@ -45,28 +37,13 @@ const Header = ({handleBlogs}) => {
                     >
                         {user.username}
                     </Typography>
-                    <BlogsButton handleBlogs={handleBlogs}/>
                     {
-                        !user.username ? (
-                            <div>     
-                                <LoginButton />
-                                <RegisterButton />
-                            </div>
-                            
-                        ) : (
-                            <div>
-                                <CreateNewBlog />
-                                <Button 
-                                    color="inherit" 
-                                    variant="outlined" 
-                                    className={classes.buttons} 
-                                    onClick={logoutHandle}
-                                    startIcon={<ExitToAppIcon />}
-                                >
-                                    Logout
-                                </Button>
-                            </div>
-                            
+                        matches ? 
+                        (
+                            <DesktopHeader />
+                        ) : 
+                        (
+                            <PhoneHeader />
                         )
                     }    
                 </Toolbar>

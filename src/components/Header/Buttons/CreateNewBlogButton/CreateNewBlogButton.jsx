@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { useSelector, useDispatch } from "react-redux";
+import { useMediaQuery, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 import axios from 'axios';
 import BookIcon from '@material-ui/icons/Book';
 
@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     }
 })
 
-const CreateNewBlog = () => {
+const CreateNewBlogButton = () => {
     const classes = useStyles();
     const createNewBlogLink = "http://localhost:5000/blogs/new-blog";
     const [dialog, setDialog] = useState(false);
@@ -22,6 +22,9 @@ const CreateNewBlog = () => {
         imageLink: "",
         author: user.firstName
     })
+
+    const theme = useTheme();
+    const headerButtonsStyle = useMediaQuery(theme.breakpoints.up('md'));
 
     const createNewBlogHandle = (e) => {
         e.preventDefault();
@@ -37,7 +40,7 @@ const CreateNewBlog = () => {
     }
 
     return (
-        <div style={{display: "inline"}}>
+        <div style={headerButtonsStyle ? {display: "inline"} : {display: "block"}}>
             <Button
                 variant="outlined"
                 color="inherit"
@@ -110,4 +113,4 @@ const CreateNewBlog = () => {
     )
 }
 
-export default CreateNewBlog
+export default CreateNewBlogButton

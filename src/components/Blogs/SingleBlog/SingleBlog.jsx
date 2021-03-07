@@ -14,6 +14,7 @@ const SingleBlog = ({ match }) => {
                     if(blog._id === id) {
                         console.log("Hup")
                         return <TheWholeBlog 
+                                    key={blog._id}
                                     title={blog.title}
                                     content={blog.content}
                                     author={blog.author}

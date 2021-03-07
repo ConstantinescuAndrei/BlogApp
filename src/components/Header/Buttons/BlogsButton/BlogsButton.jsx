@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useSelector, useDispatch } from "react-redux";
-import { saveBlogs } from "../../../Redux/actions";
+import { saveBlogs } from "../../../../Redux/actions";
 import { Link } from "react-router-dom";
 import BookIcon from '@material-ui/icons/Book';
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const BlogsButton = ({handleBlogs}) => {
+const BlogsButton = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const blogsLink = "http://localhost:5000/blogs";
@@ -26,7 +26,6 @@ const BlogsButton = ({handleBlogs}) => {
         async function fetchBlogs() {
             const response = await axios.get(blogsLink);
             dispatch(saveBlogs(response.data));
-            handleBlogs();
         }
 
         fetchBlogs();

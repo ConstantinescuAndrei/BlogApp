@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { useMediaQuery, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/styles";
 import { useSelector, useDispatch} from 'react-redux';
-import { signIn } from '../../../Redux/actions';
+import { signIn } from '../../../../Redux/actions';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const useStyles = makeStyles({
     button: {
-        marginLeft: "5px"
+        marginLeft: "5px",
     }
 })
 
 const RegisterButton = () => {
-    const classes = useStyles();
     const registerLink = "http://localhost:5000/users/register"
+
+    const classes = useStyles();
     const [formUser, setFormUser] = useState({
         username: '',
         password: '',
@@ -25,6 +26,9 @@ const RegisterButton = () => {
     const [registerDialog, setRegisterDialog] = useState(false);
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
+
+    const theme = useTheme();
+    const headerButtonsStyle = useMediaQuery(theme.breakpoints.up('md'));
 
     const registerUserHandle = (e) => {
         e.preventDefault();
@@ -46,7 +50,7 @@ const RegisterButton = () => {
     }
 
     return (
-        <div style={{display: "inline"}}>
+        <div style={headerButtonsStyle ? {display: "inline"} : {display: "block"}}>
             <Button 
                 variant="outlined" 
                 color="inherit"

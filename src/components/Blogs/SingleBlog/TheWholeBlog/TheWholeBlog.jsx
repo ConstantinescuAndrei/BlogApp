@@ -29,21 +29,19 @@ const TheWholeBlog = ({title, content, author, image, avatar}) => {
 
     return (
         <>
-            <Grid item md={3} />
-            <Grid item xs={12} md={6}>
+            <Grid item xs={10} md={8}>
                 <Paper variant="outlined">
                     <Typography variant="h6" color="secondary" className={classes.title} >{title}</Typography>
                     <Typography variant="subtitle1" color="secondary" className={classes.author}>{author}</Typography>
                     <Divider variant="middle"/>
                     <img 
-                        class="img"
-                        style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "40%", height: "100%"}} 
+                        className="img"
+                        style={{ display: "block", borderRadius: "15%", marginLeft: "auto", marginRight: "auto", width: "40%", height: "100%"}} 
                         src={image} 
-                        />
+                    />
                     <Typography className={classes.content}>{content}</Typography>    
                 </Paper>
             </Grid>
-            <Grid item md={3} />
         </>
     )
 }
