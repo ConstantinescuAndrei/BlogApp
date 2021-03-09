@@ -5,11 +5,15 @@ import { useSelector } from "react-redux";
 import axios from 'axios';
 import BookIcon from '@material-ui/icons/Book';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     button: {
-        marginLeft: "5px"
+        marginLeft: "5px",
+        [theme.breakpoints.down("md")] : {
+            marginRight: "5px",
+            marginBottom: "5px"
+        }
     }
-})
+}))
 
 const CreateNewBlogButton = () => {
     const classes = useStyles();
@@ -40,7 +44,7 @@ const CreateNewBlogButton = () => {
     }
 
     return (
-        <div style={headerButtonsStyle ? {display: "inline"} : {display: "block"}}>
+        <div style={headerButtonsStyle ? {display: "inline"} : {display: "flex", justifyContent: "center"}}>
             <Button
                 variant="outlined"
                 color="inherit"

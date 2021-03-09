@@ -6,11 +6,15 @@ import { useSelector, useDispatch} from 'react-redux';
 import { signIn } from '../../../../Redux/actions';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     button: {
         marginLeft: "5px",
+        [theme.breakpoints.down('md')] : {
+            marginRight: "5px",
+            marginBottom: "5px"
+        }
     }
-})
+}))
 
 const RegisterButton = () => {
     const registerLink = "http://localhost:5000/users/register"
@@ -50,7 +54,7 @@ const RegisterButton = () => {
     }
 
     return (
-        <div style={headerButtonsStyle ? {display: "inline"} : {display: "block"}}>
+        <div style={headerButtonsStyle ? {display: "inline"} : {display: "flex", justifyContent: "center"}}>
             <Button 
                 variant="outlined" 
                 color="inherit"

@@ -73,7 +73,7 @@ const LoginButton = () => {
     }
 
     return (       
-        <div style={headerButtonsStyle ? {display: "inline"} : {display: "block"}}>            
+        <div style={headerButtonsStyle ? {display: "inline"} : {display: "flex", justifyContent: "center"}}>            
             <Button
                 variant="outlined"
                 color="inherit"

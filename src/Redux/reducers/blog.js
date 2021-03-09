@@ -21,6 +21,13 @@ const blogReducer = (state = {
                 })
             }
         }
+        case "DELETE_BLOG_BY_ID": {
+            const modifiedState = state.blogs.filter((blog) => blog._id != action.payload);
+            state.blogs = Object.assign([], modifiedState);
+
+            console.log(modifiedState);
+            return state;
+        }
         default: {
             state.db = false;
             return state;

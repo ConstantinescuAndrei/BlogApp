@@ -3,7 +3,8 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Header from "./components/Header/Header";
-import Menu from './components/Menu'
+import Menu from './components/Menu/Menu'
+import UserBlogs from './components/Blogs/UserBlogs/UserBlogs';
 import SingleBlog from './components/Blogs/SingleBlog/SingleBlog'
 import { saveBlogs } from './Redux/actions';
 import { useDispatch } from "react-redux";
@@ -26,8 +27,8 @@ const useStyles = makeStyles({
 function App() {  
   const classes = useStyles();
   const [showBlogs, setShowBlogs] = useState(false);
-  const blogsLink = "http://localhost:5000/blogs";
   const dispatch = useDispatch();
+  const blogsLink = "http://localhost:5000/blogs";
 
   const handleBlogs = () => {
     setShowBlogs(!showBlogs);
@@ -49,10 +50,11 @@ function App() {
         <Grid item sm={12}>
           <Header />
         </Grid>         
-        <Grid item container styles={{marginLeft: "1000px", marginRight: "10%"}}>
+        <Grid item container>
           <Grid item xs={1} md={2} />
           <Switch>
             <Route path="/" exact component={Menu} />
+            <Route path="/blogs" exact component={UserBlogs} />
             <Route path="/blogs/:id" component={SingleBlog} />          
           </Switch>
           <Grid item xs={1} md={2} />

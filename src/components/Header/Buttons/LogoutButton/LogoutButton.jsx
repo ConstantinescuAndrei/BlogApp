@@ -5,11 +5,15 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../../../../Redux/actions';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-const useStyles = makeStyles ({
+const useStyles = makeStyles (theme => ({
     button: {
-        marginLeft: "5px"
+        marginLeft: "5px",
+        [theme.breakpoints.down("md")] : {
+            marginRight: "5px",
+            marginBottom: "5px"
+        }
     }
-})
+}))
 
 const LogoutButton = () => {
     const dispatch = useDispatch();
@@ -24,7 +28,7 @@ const LogoutButton = () => {
     }
 
     return (
-        <div style={headerButtonsStyle ? {display: "inline"} : {display: "block"}}>
+        <div style={headerButtonsStyle ? {display: "inline"} : {display: "flex", justifyContent: "center"}}>
             <Button 
                 color="inherit" 
                 variant="outlined" 

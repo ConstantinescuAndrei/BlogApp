@@ -24,3 +24,10 @@ export const getBlog = (id) => {
         payload: id
     }
 }
+
+export const deleteBlogById = (id) => {
+    return {
+        type: "DELETE_BLOG_BY_ID",
+        payload: id
+    }
+}

@@ -4,7 +4,7 @@ import BlogCard from './BlogCard/BlogCard'
 import { useSelector } from 'react-redux';
 
 
-const CardForm = () => {    
+const Blogs = () => {    
     const b = useSelector(state => state.blog);
     
     return (
@@ -13,7 +13,6 @@ const CardForm = () => {
                 b.blogs.map((blog) => {
                     return <BlogCard
                                 key={blog._id}
-                                id={blog._id}
                                 title={blog.title}
                                 content={blog.content}
                                 author={blog.author}
@@ -24,4 +23,4 @@ const CardForm = () => {
     )
 }
 
-export default CardForm
+export default Blogs

@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 
 import LoginButton from '../Buttons/LoginButton/LoginButton';
 import RegisterButton from '../Buttons/RegisterButton/RegisterButton';
-import CreateNewBlogButton from '../Buttons/CreateNewBlogButton/CreateNewBlogButton';
+import CreateNewBlog from '../Buttons/CreateNewBlog/CreateNewBlog';
 import LogoutButton from '../Buttons/LogoutButton/LogoutButton';
+import UserBlogsButton from '../Buttons/UserBlogsButton/UserBlogsButton';
 
 const DesktopHeader = () => {
     const user = useSelector(state => state.user);
@@ -21,7 +22,8 @@ const DesktopHeader = () => {
                 ) :
                 (
                     <div>
-                        <CreateNewBlogButton />
+                        <UserBlogsButton />
+                        <CreateNewBlog />
                         <LogoutButton />
                     </div>
                 )

@@ -1,8 +1,12 @@
 import React from 'react'
-import { Grid, Paper, Typography, Divider } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles"
+import { Grid, Paper, Typography, Divider, Avatar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import red from '@material-ui/core/colors/red';
 
 const useStyles = makeStyles({
+    cardRoot: {
+        maxWidth: 345,
+    },
     grid: {
         justify: "center",
         alignContent: "center",
@@ -21,6 +25,13 @@ const useStyles = makeStyles({
     content: {
         marginTop: "10px",
         marginLeft: "5%"
+    },
+    avatar: {
+        backgroundColor: red[500]
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%'
     }
 })
 
@@ -35,8 +46,8 @@ const TheWholeBlog = ({title, content, author, image, avatar}) => {
                     <Typography variant="subtitle1" color="secondary" className={classes.author}>{author}</Typography>
                     <Divider variant="middle"/>
                     <img 
-                        className="img"
-                        style={{ display: "block", borderRadius: "15%", marginLeft: "auto", marginRight: "auto", width: "40%", height: "100%"}} 
+                        className="img"                        
+                        style={{ display: "block", borderRadius: "15%", marginLeft: "auto", marginRight: "auto", height: "100%", width: "8rem", float: "right", paddingRight: "5px", paddingTop: "5px"}} 
                         src={image} 
                     />
                     <Typography className={classes.content}>{content}</Typography>    

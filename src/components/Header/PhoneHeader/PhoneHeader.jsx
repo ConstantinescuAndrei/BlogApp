@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import LoginButton from '../Buttons/LoginButton/LoginButton';
 import RegisterButton from '../Buttons/RegisterButton/RegisterButton';
 import LogoutButton from '../Buttons/LogoutButton/LogoutButton';
-import CreateNewBlogButton from '../Buttons/CreateNewBlogButton/CreateNewBlogButton';
+import CreateNewBlog from '../Buttons/CreateNewBlog/CreateNewBlog';
+import UserBlogsButton from '../Buttons/UserBlogsButton/UserBlogsButton';
 
 const PhoneHeader = () => {
     const [anchorEl, setAnchorEl] = useState(false);
@@ -42,7 +43,8 @@ const PhoneHeader = () => {
                     ) :
                     (
                         <div>
-                            <CreateNewBlogButton />
+                            <UserBlogsButton />
+                            <CreateNewBlog />
                             <LogoutButton />
                         </div>
                     )
